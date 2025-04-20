@@ -1,0 +1,3 @@
+bigquery:
+  projectId: PROJECT_ID
+  datasetId: DATASET_ID

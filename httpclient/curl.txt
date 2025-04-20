@@ -1,0 +1,15 @@
+
+## デビットとクレジット療法
+curl -X POST --location "http://localhost:8080/rakuten/transaction/analysis" \
+    -F "file=@/Users/bandousatoshi/dev/golang/rakuten-transaction-analytics/httpclient/samplefiles/credit.csv;filename=file1.csv;type=text/csv" \
+    -F "file=@/Users/bandousatoshi/dev/golang/rakuten-transaction-analytics/httpclient/samplefiles/debit.csv;filename=file2.csv;type=text/csv"
+
+## クレジットのみ
+curl -X POST --location "http://localhost:8080/rakuten/transaction/analysis" \
+    -F "file=@/Users/bandousatoshi/dev/golang/rakuten-transaction-analytics/httpclient/samplefiles/credit.csv;filename=file1.csv;type=text/csv"
+
+## クレジット+デビット+リクエスト
+curl -X POST --location "http://localhost:8080/rakuten/transaction/analysis" \
+    -F "file=@/Users/bandousatoshi/dev/golang/rakuten-transaction-analytics/httpclient/samplefiles/credit.csv;filename=file1.csv;type=text/csv" \
+    -F "file=@/Users/bandousatoshi/dev/golang/rakuten-transaction-analytics/httpclient/samplefiles/debit.csv;filename=file2.csv;type=text/csv" \
+    -F "metadata={\"baseAmounts\":300000,\"fixedCosts\":138620}"
