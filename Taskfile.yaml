@@ -1,0 +1,36 @@
+version: '3'
+
+tasks:
+  install-tools:
+    desc: Install development tools
+    cmds:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
+      - go install golang.org/x/tools/cmd/goimports@latest
+
+  tidy:
+    desc: Run go mod tidy
+    cmds:
+      - go mod tidy
+
+  fmt:
+    desc: Format code using goimports
+    cmds:
+      - goimports -w .
+
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run ./...
+
+  test:
+    desc: Run tests
+    cmds:
+      - go test -v ./...
+
+  ci:
+    desc: Run all checks (tidy, fmt, lint, test)
+    cmds:
+      - task: tidy
+      - task: fmt
+      - task: lint
+      - task: test

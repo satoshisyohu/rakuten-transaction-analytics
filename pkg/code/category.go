@@ -8,7 +8,7 @@ const (
 	Waste    Category = "waste"
 	Fixed    Category = "fixed"
 	Variable Category = "variable"
-	Savings  Category = "variable"
+	Savings  Category = "savings"
 )
 
 func (c Category) String() string {

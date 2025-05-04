@@ -1,10 +1,11 @@
 package models
 
 import (
+	"time"
+
 	"cloud.google.com/go/civil"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/code"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/helper"
-	"time"
 )
 
 // Transaction 明細情報
@@ -35,7 +36,7 @@ func NewTransactions(records [][]string, transactionType code.TransactionType, i
 	for _, r := range records {
 		timeDate := newTransactionDate(r, transactionType)
 		amount := newAmount(r, transactionType)
-		t := NewTransaction(timeDate, r[1], id, transactionType.String(), amount)
+		t := NewTransaction(timeDate, r[1], id, transactionType.ToLabel(), amount)
 		//fmt.Println(t)
 		transaction = append(transaction, t)
 	}

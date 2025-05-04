@@ -2,8 +2,9 @@ package helper
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v3"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 func JsonToStruct[T any](path string, v *T) (err error) {

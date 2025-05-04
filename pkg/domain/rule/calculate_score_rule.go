@@ -1,10 +1,12 @@
 package rule
 
 import (
-	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
+	"context"
+
+	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
 )
 
 type ICalculateScoreRule interface {
 	// CalculateScore ファイルを読み込む
-	CalculateScore(transactionReport *models.TransactionReport) (float64, error)
+	CalculateScore(ctx context.Context, transactionReportDto *aggregate.TransactionReportDto) (float64, error)
 }

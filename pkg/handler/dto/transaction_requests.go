@@ -1,5 +1,7 @@
 package dto
 
+import "cloud.google.com/go/civil"
+
 type TransactionRequest struct {
 	YearMonth string `json:"yearMonth"`
 	// ベースとなる金額
@@ -14,8 +16,18 @@ type TransactionRequest struct {
 	FixedCosts int64 `json:"fixedCosts"`
 	// 変動費
 	VariableCosts int64 `json:"variableCosts"`
+	// 取引明細
+	Transactions []*AnalyzeTransaction `json:"transactions"`
 }
 
 func (tr *TransactionRequest) CalculateTotalAmount() int64 {
 	return tr.FoodExpenses + tr.WasteExpenses + tr.OtherExpenses + tr.FixedCosts + tr.VariableCosts
+}
+
+type AnalyzeTransaction struct {
+	TransactionDate civil.Date `json:"transactionDate"`
+	Detail          string     `json:"detail"`
+	Amount          int64      `json:"amount"`
+	Category        string     `json:"category"`
+	TransactionType string     `json:"transactionType"`
 }

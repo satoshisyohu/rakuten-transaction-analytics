@@ -3,9 +3,10 @@ package impl
 import (
 	"bytes"
 	"encoding/csv"
+	"mime/multipart"
+
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
-	"mime/multipart"
 )
 
 type FileReaderRule struct {
