@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
+)
+
 type TransactionReport struct {
 	// ID
 	Id string
@@ -23,4 +27,20 @@ type TransactionReport struct {
 	Score float64
 	// 貯金
 	Savings int64
+}
+
+func NewTransactionReport(yearMonth, id string, score float64, trd *aggregate.TransactionReportDto) *TransactionReport {
+	return &TransactionReport{
+		Id:            id,
+		YearMonth:     yearMonth,
+		BaseAmounts:   trd.BaseAmounts,
+		TotalAmount:   trd.TotalAmount,
+		FoodExpenses:  trd.FoodExpenses,
+		WasteExpenses: trd.WasteExpenses,
+		OtherExpenses: trd.OtherExpenses,
+		FixedCosts:    trd.FixedCosts,
+		VariableCosts: trd.VariableCosts,
+		Savings:       trd.Savings,
+		Score:         score,
+	}
 }

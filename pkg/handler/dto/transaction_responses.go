@@ -1,6 +1,8 @@
 package dto
 
-import "cloud.google.com/go/civil"
+import (
+	"cloud.google.com/go/civil"
+)
 
 type TransactionResponse struct {
 	// 合計使用金額

@@ -3,13 +3,13 @@ package impl
 import (
 	"context"
 	"errors"
+	"testing"
+
 	mocks "github.com/satoshisyohu/rakuten-transaction-analytics/internal/mocks/domain/repository"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
 	"github.com/zeebo/assert"
 	"go.uber.org/mock/gomock"
-	"slices"
-	"testing"
 )
 
 var normalRatioModels = []*models.RatioRule{
@@ -130,7 +130,7 @@ func TestCalculateScoreRule(t *testing.T) {
 		},
 	}
 
-	for tt := range slices.Values(tests) {
+	for _, tt := range tests {
 		t.Run("calculate score.", func(t *testing.T) {
 			// mockの生成
 			mock := gomock.NewController(t)

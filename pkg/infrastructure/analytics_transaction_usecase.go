@@ -4,10 +4,11 @@ package infrastructure
 
 import (
 	"context"
+
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/handler/dto"
 )
 
 type IAnalyticsTransactionUsecase interface {
 	// Run 実行する
-	Run(context.Context, dto.TransactionRequest) (*dto.TransactionResponse, error)
+	Run(context.Context, *dto.TransactionRequest) (*dto.TransactionResponse, error)
 }

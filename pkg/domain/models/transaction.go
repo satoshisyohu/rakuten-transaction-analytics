@@ -19,25 +19,24 @@ type Transaction struct {
 }
 
 // NewTransaction Transactionのファクトリ関数
-func NewTransaction(date time.Time, storeName, id, transactionType string, amount int64) *Transaction {
+func NewTransaction(date time.Time, storeName, transactionType string, amount int64) *Transaction {
+	// idはscore生成時に設定するのでこの時点では空文字
 	return &Transaction{
 		TransactionDate: civil.Date{Year: date.Year(), Month: date.Month(), Day: date.Day()},
 		Detail:          storeName,
 		Amount:          amount,
-		Id:              id,
 		TransactionType: transactionType,
 	}
 }
 
 // NewTransactions Transactionのスライスを作成するファクトリ関数、トランザクションタイプに応じてヘダーから値を取り出
-func NewTransactions(records [][]string, transactionType code.TransactionType, id string) []*Transaction {
+func NewTransactions(records [][]string, transactionType code.TransactionType) []*Transaction {
 	// recordsはtransactionの形式に変換して返却する
 	var transaction []*Transaction
 	for _, r := range records {
 		timeDate := newTransactionDate(r, transactionType)
 		amount := newAmount(r, transactionType)
-		t := NewTransaction(timeDate, r[1], id, transactionType.ToLabel(), amount)
-		//fmt.Println(t)
+		t := NewTransaction(timeDate, r[1], transactionType.ToLabel(), amount)
 		transaction = append(transaction, t)
 	}
 	return transaction

@@ -3,9 +3,9 @@ package dto
 import "cloud.google.com/go/civil"
 
 type TransactionRequest struct {
-	YearMonth string `json:"yearMonth"`
+	YearMonth string `json:"yearMonth" validate:"required"`
 	// ベースとなる金額
-	BaseAmounts int64 `json:"baseAmounts"`
+	BaseAmounts int64 `json:"baseAmounts" validate:"required"`
 	// 食費
 	FoodExpenses int64 `json:"foodExpenses"`
 	// コンビニ費用

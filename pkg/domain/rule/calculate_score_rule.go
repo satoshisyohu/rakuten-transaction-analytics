@@ -10,5 +10,5 @@ import (
 
 type ICalculateScoreRule interface {
 	// CalculateScore ファイルを読み込む
-	CalculateScore(ctx context.Context, transactionReportDto *aggregate.TransactionReportDto) (float64, error)
+	CalculateScore(context.Context, *aggregate.TransactionReportDto) (float64, error)
 }

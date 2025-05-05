@@ -10,12 +10,14 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/infrastructure"
 )
 
+// TransactionHandler トランザクションハンドラ
 type TransactionHandler struct {
 	// usecase
 	atu infrastructure.IAnalyticsTransactionUsecase
 	rtu infrastructure.IRetrieveTransactionUsecase
 }
 
+// NewTransactionHandler TransactionHandlerのファクトリ関数
 func NewTransactionHandler(atu infrastructure.IAnalyticsTransactionUsecase,
 	rtu infrastructure.IRetrieveTransactionUsecase) *TransactionHandler {
 	return &TransactionHandler{
@@ -24,6 +26,7 @@ func NewTransactionHandler(atu infrastructure.IAnalyticsTransactionUsecase,
 	}
 }
 
+// Retrieve 明細取得
 func (h *TransactionHandler) Retrieve(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	if r.Method != http.MethodPost {
@@ -53,6 +56,7 @@ func (h *TransactionHandler) Retrieve(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Execute 分析実行
 func (h *TransactionHandler) Execute(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	if r.Method != http.MethodPost {
@@ -61,12 +65,12 @@ func (h *TransactionHandler) Execute(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		req dto.TransactionRequest
+		req *dto.TransactionRequest
 		res *dto.TransactionResponse
 		err error
 	)
 
-	if err = json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err = json.NewDecoder(r.Body).Decode(req); err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 	}
 	if res, err = h.atu.Run(ctx, req); err != nil {

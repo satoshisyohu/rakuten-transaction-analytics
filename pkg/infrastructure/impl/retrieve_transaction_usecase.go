@@ -69,14 +69,12 @@ func (r *RetrieveTransactionUsecase) Run(_ context.Context, files []*multipart.F
 // handleTransactionRule ヘダーの数に応じてトランザクションを返す（ヘダーの数が変わった際に影響を受けるので要注意）
 func (r *RetrieveTransactionUsecase) handleTransactionRule(records [][]string) rule.ITransactionRule {
 	// ヘダーの数に応じて対象のルールを判定する
-	// 本APIにおいてUUIDは不要であるためからの文字列を付与する
-	// todo というかいらんくなるかも？
 	switch len(records[0]) {
 	case CreditTransaction:
-		return impl.NewCreditTransactionRule(models.NewTransactions(records[1:], code.CreditTransaction, ""), &impl.CreditCategorizeRule{})
+		return impl.NewCreditTransactionRule(models.NewTransactions(records[1:], code.CreditTransaction), &impl.CreditCategorizeRule{})
 	case DebitTransaction:
-		return impl.NewDebitTransactionRule(models.NewTransactions(records[1:], code.DebitTransaction, ""), &impl.DebitCategorizeRule{})
+		return impl.NewDebitTransactionRule(models.NewTransactions(records[1:], code.DebitTransaction), &impl.DebitCategorizeRule{})
 	}
-	// ルールが見つからない場合はnilを返す
+	// 基本的に想定外あるがルールが見つからない場合はnilを返す
 	return nil
 }

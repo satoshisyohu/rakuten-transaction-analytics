@@ -23,7 +23,7 @@ type ratioRuleRepository struct {
 	client *bigquery.Client
 }
 
-// NewRatioRuleRepository コンストラクタ
+// NewRatioRuleRepository ratioRuleRepositoryのファクトリ関数
 func NewRatioRuleRepository(client *bigquery.Client) repository.RatioRuleRepository {
 	return &ratioRuleRepository{
 		client: client,

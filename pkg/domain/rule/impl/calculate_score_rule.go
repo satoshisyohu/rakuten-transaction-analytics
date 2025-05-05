@@ -5,7 +5,6 @@ import (
 	"errors"
 	"log/slog"
 	"math"
-	"slices"
 
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/code"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
@@ -43,7 +42,7 @@ func (c *CalculateScoreRule) CalculateScore(ctx context.Context, tr *aggregate.T
 	// 初期スコアおよび減点係数の設定
 	score := 100.0
 
-	for s := range slices.Values(mappedScore) {
+	for _, s := range mappedScore {
 		// スコアを算出して、減点する
 		score -= c.calculatePenaltyScore(s)
 	}
@@ -68,7 +67,7 @@ func (c *CalculateScoreRule) calculatePenaltyScore(score *models.Score) float64 
 // calculateActualScore 実際のスコアを計算する
 func (c *CalculateScoreRule) calculateActualScore(tr *aggregate.TransactionReportDto, ratioRules []*models.RatioRule) (scores []*models.Score) {
 
-	for r := range slices.Values(ratioRules) {
+	for _, r := range ratioRules {
 		var actualRatio float64
 		switch r.Category {
 		case code.Food.String():
@@ -97,7 +96,7 @@ func (c *CalculateScoreRule) calculateActualScore(tr *aggregate.TransactionRepor
 // validateScore dbから取得したスコアをバリデーションする
 func (c *CalculateScoreRule) validateScore(scoreMapping []*models.RatioRule) error {
 	var sumScore float64
-	for score := range slices.Values(scoreMapping) {
+	for _, score := range scoreMapping {
 		sumScore += score.IdealRatio
 	}
 	if sumScore != 1.0 {

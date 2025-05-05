@@ -43,23 +43,20 @@ func (f *FileReaderRule) newReader(file multipart.File) (*csv.Reader, error) {
 
 	// BOM判定のためファイルの先頭から3バイトを読み込む
 	bom := make([]byte, 3)
-	_, err := file.Read(bom)
-	if err != nil {
+	if _, err := file.Read(bom); err != nil {
 		return nil, err
 	}
 
 	// bomの判定ロジックを実施する
-	expectedBOM := []byte{0xEF, 0xBB, 0xBF}
 	// UTF-8のBOMか判定する
-	if bytes.Equal(bom, expectedBOM) {
+	if bytes.Equal(bom, []byte{0xEF, 0xBB, 0xBF}) {
 		// BOMが存在する場合はすでにファイルポインタがBOM以降のためそのまま返す
 		// これはクレジットカードの明細を読み込んだ場合でありUTF-8のためそのまま読み込み可能
 		return csv.NewReader(file), nil
 	} else {
 		// BOMがない場合、ファイルポインタを先頭に戻す必要がある
 		// これはデビットカードの明細を読み込んだ場合でありShift-JISのためデコードして読み込む必要がある
-		_, err = file.Seek(0, 0)
-		if err != nil {
+		if _, err := file.Seek(0, 0); err != nil {
 			return nil, err
 		}
 		// BOMがない場合はShift-JISでデコードする

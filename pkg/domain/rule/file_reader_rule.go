@@ -6,5 +6,5 @@ import "mime/multipart"
 
 type IFileReaderRule interface {
 	// ReadAll ファイルを読み込む
-	ReadAll(file *multipart.FileHeader) ([][]string, error)
+	ReadAll(*multipart.FileHeader) ([][]string, error)
 }

@@ -3,6 +3,7 @@ package impl
 import (
 	"context"
 	"errors"
+
 	"github.com/google/uuid"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/code"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
@@ -40,7 +41,7 @@ func NewAnalyticsTransactionUsecase(
 	}
 }
 
-func (a *AnalyticsTransactionUsecase) Run(ctx context.Context, req dto.TransactionRequest) (res *dto.TransactionResponse, err error) {
+func (a *AnalyticsTransactionUsecase) Run(ctx context.Context, req *dto.TransactionRequest) (res *dto.TransactionResponse, err error) {
 	// 冪等性を担保するためにリクエストの月のTransactionReportsを取得する
 	//レコードが存在する場合、基本的に処理は行わないが、リクエストのパラメタに応じて処理を行う
 	tr, err := a.transactionReport.SelectByYearMonth(ctx, req.YearMonth)
@@ -68,19 +69,7 @@ func (a *AnalyticsTransactionUsecase) Run(ctx context.Context, req dto.Transacti
 	}
 
 	// dtoとscoreからDBに保存するmodelを生成する
-	transactionReport := &models.TransactionReport{
-		Id:            u,
-		YearMonth:     req.YearMonth,
-		BaseAmounts:   trd.BaseAmounts,
-		TotalAmount:   trd.TotalAmount,
-		FoodExpenses:  trd.FoodExpenses,
-		WasteExpenses: trd.WasteExpenses,
-		OtherExpenses: trd.OtherExpenses,
-		FixedCosts:    trd.FixedCosts,
-		VariableCosts: trd.VariableCosts,
-		Savings:       trd.Savings,
-		Score:         score,
-	}
+	transactionReport := models.NewTransactionReport(req.YearMonth, u, score, trd)
 
 	// すべての明細をDBに保存する
 	if err = a.transactionRepository.SaveAll(ctx, modelTransaction); err != nil {
@@ -114,7 +103,7 @@ func (a *AnalyticsTransactionUsecase) Run(ctx context.Context, req dto.Transacti
 }
 
 // calculateAndAggregateTransaction ヘダーの数に応じてトランザクションを返す（ヘダーの数が変わった際に影響を受けるので要注意）
-func (a *AnalyticsTransactionUsecase) calculateAndAggregateTransaction(req dto.TransactionRequest, u string) (*aggregate.TransactionReportDto, []*models.Transaction) {
+func (a *AnalyticsTransactionUsecase) calculateAndAggregateTransaction(req *dto.TransactionRequest, u string) (*aggregate.TransactionReportDto, []*models.Transaction) {
 	var (
 		allTransaction = make([]*models.Transaction, len(req.Transactions))
 		totalAmount    int64
