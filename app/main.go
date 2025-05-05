@@ -44,7 +44,6 @@ func main() {
 	// handler
 	transactionHandler := handler.NewTransactionHandler(transactionUsecase, retrieveTransactionUsecase)
 
-	http.HandleFunc("/rakuten/transaction/analysis", transactionHandler.Analysis)
 	http.HandleFunc("/rakuten/transaction/retrieve", transactionHandler.Retrieve)
 	http.HandleFunc("/rakuten/transaction/execute", transactionHandler.Execute)
 

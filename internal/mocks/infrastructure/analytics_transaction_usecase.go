@@ -11,7 +11,6 @@ package mocks
 
 import (
 	context "context"
-	multipart "mime/multipart"
 	reflect "reflect"
 
 	dto "github.com/satoshisyohu/rakuten-transaction-analytics/pkg/handler/dto"
@@ -42,32 +41,17 @@ func (m *MockIAnalyticsTransactionUsecase) EXPECT() *MockIAnalyticsTransactionUs
 	return m.recorder
 }
 
-// Execute mocks base method.
-func (m *MockIAnalyticsTransactionUsecase) Execute(ctx context.Context, req dto.TransactionRequest) (*dto.TransactionResponse, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Execute", ctx, req)
-	ret0, _ := ret[0].(*dto.TransactionResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Execute indicates an expected call of Execute.
-func (mr *MockIAnalyticsTransactionUsecaseMockRecorder) Execute(ctx, req any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Execute", reflect.TypeOf((*MockIAnalyticsTransactionUsecase)(nil).Execute), ctx, req)
-}
-
 // Run mocks base method.
-func (m *MockIAnalyticsTransactionUsecase) Run(ctx context.Context, req dto.TransactionRequest, files []*multipart.FileHeader) (*dto.TransactionResponse, error) {
+func (m *MockIAnalyticsTransactionUsecase) Run(arg0 context.Context, arg1 dto.TransactionRequest) (*dto.TransactionResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Run", ctx, req, files)
+	ret := m.ctrl.Call(m, "Run", arg0, arg1)
 	ret0, _ := ret[0].(*dto.TransactionResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Run indicates an expected call of Run.
-func (mr *MockIAnalyticsTransactionUsecaseMockRecorder) Run(ctx, req, files any) *gomock.Call {
+func (mr *MockIAnalyticsTransactionUsecaseMockRecorder) Run(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockIAnalyticsTransactionUsecase)(nil).Run), ctx, req, files)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockIAnalyticsTransactionUsecase)(nil).Run), arg0, arg1)
 }

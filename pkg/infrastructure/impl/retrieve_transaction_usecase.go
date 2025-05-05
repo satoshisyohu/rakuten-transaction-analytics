@@ -67,7 +67,7 @@ func (r *RetrieveTransactionUsecase) Run(_ context.Context, files []*multipart.F
 }
 
 // handleTransactionRule ヘダーの数に応じてトランザクションを返す（ヘダーの数が変わった際に影響を受けるので要注意）
-func (a *RetrieveTransactionUsecase) handleTransactionRule(records [][]string) rule.ITransactionRule {
+func (r *RetrieveTransactionUsecase) handleTransactionRule(records [][]string) rule.ITransactionRule {
 	// ヘダーの数に応じて対象のルールを判定する
 	// 本APIにおいてUUIDは不要であるためからの文字列を付与する
 	// todo というかいらんくなるかも？

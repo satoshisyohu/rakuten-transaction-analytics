@@ -10,5 +10,5 @@ import (
 
 type IRetrieveTransactionUsecase interface {
 	// Run 実行する
-	Run(ctx context.Context, files []*multipart.FileHeader) (*dto.RetrieveTransactionResponses, error)
+	Run(context.Context, []*multipart.FileHeader) (*dto.RetrieveTransactionResponses, error)
 }
