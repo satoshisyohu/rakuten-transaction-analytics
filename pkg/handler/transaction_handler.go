@@ -45,7 +45,6 @@ func (h *TransactionHandler) Retrieve(w http.ResponseWriter, r *http.Request) {
 	var res *dto.RetrieveTransactionResponses
 
 	if res, err = h.rtu.Run(ctx, files); err != nil {
-		fmt.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -71,11 +70,9 @@ func (h *TransactionHandler) Execute(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 	}
 	if res, err = h.atu.Run(ctx, req); err != nil {
-		fmt.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println(res)
 	// response書き込み
 	helper.WriteJsonResponse(w, http.StatusOK, res)
 

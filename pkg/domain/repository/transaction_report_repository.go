@@ -9,6 +9,6 @@ import (
 )
 
 type TransactionReportRepository interface {
-	SaveAll(ctx context.Context, models []*models.TransactionReport) error
-	SelectByYearMonth(ctx context.Context, yearMonth string) ([]*models.TransactionReport, error)
+	SaveAll(context.Context, []*models.TransactionReport) error
+	SelectByYearMonth(context.Context, string) ([]*models.TransactionReport, error)
 }

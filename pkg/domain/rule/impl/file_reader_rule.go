@@ -3,6 +3,7 @@ package impl
 import (
 	"bytes"
 	"encoding/csv"
+	"log/slog"
 	"mime/multipart"
 
 	"golang.org/x/text/encoding/japanese"
@@ -23,7 +24,12 @@ func (f *FileReaderRule) ReadAll(fileHeader *multipart.FileHeader) ([][]string, 
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close()
+	defer func(file multipart.File) {
+		dErr := file.Close()
+		if dErr != nil {
+			slog.Error("ファイルクローズに失敗しました", "err", dErr)
+		}
+	}(file)
 	// CSVリーダーを作成
 	reader, err := f.newReader(file)
 	if err != nil {
