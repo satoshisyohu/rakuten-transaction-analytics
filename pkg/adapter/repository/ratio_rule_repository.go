@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
+	"log/slog"
 
 	"cloud.google.com/go/bigquery"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
@@ -15,9 +15,10 @@ import (
 
 const (
 	ratioRuleTable = "RatioRules"
+	selectAllSql   = "SELECT Id,IdealRatio,Category,StartDate,EndDate FROM `%s.%s`"
 )
 
-// transactionRepository 明細を保存するリポジトリ
+// ratioRuleRepository 明細を保存するリポジトリ
 type ratioRuleRepository struct {
 	client *bigquery.Client
 }
@@ -29,27 +30,24 @@ func NewRatioRuleRepository(client *bigquery.Client) repository.RatioRuleReposit
 	}
 }
 
-// SelectAll 明細を保存する
+// SelectAll 比率のルールを取得する
 func (rr *ratioRuleRepository) SelectAll(ctx context.Context) ([]*models.RatioRule, error) {
-	sql := fmt.Sprintf(
-		"SELECT Id,IdealRatio,Category,StartDate,EndDate FROM `%s.%s`",
-		helper.GetDatasetId(), ratioRuleTable,
-	)
+	sql := fmt.Sprintf(selectAllSql, helper.GetDatasetId(), ratioRuleTable)
 
 	it, err := rr.client.Query(sql).Read(ctx)
 	if err != nil {
-		fmt.Println("Error reading query results:", err)
+		slog.Error("Error reading query results.", "err", err)
 		return nil, err
 	}
 	var res []*models.RatioRule
 	for {
 		var r models.RatioRule
-		err := it.Next(&r)
+		err = it.Next(&r)
 		if errors.Is(err, iterator.Done) {
 			break
 		}
 		if err != nil {
-			log.Fatalf("Failed to iterate result: %v", err)
+			slog.Error("Failed to iterate result.", "err", err)
 		}
 		res = append(res, &r)
 	}

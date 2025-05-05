@@ -3,7 +3,9 @@ package impl
 import (
 	"context"
 	"errors"
+	"log/slog"
 	"math"
+	"slices"
 
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/code"
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
@@ -11,13 +13,14 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/repository"
 )
 
-// 減点係数
-const penaltyFactor = 50.0
+const penaltyFactor = 50.0 // 減点係数
 
+// CalculateScoreRule スコア計算ルール
 type CalculateScoreRule struct {
 	rrr repository.RatioRuleRepository
 }
 
+// NewCalculateScoreRule CalculateScoreRuleのファクトリ関数
 func NewCalculateScoreRule(rrr repository.RatioRuleRepository) *CalculateScoreRule {
 	return &CalculateScoreRule{rrr: rrr}
 }
@@ -31,7 +34,7 @@ func (c *CalculateScoreRule) CalculateScore(ctx context.Context, tr *aggregate.T
 		return 0, err
 	}
 	// scoreをバリデーションする
-	if err = c.validateScoreMapping(ratioRules); err != nil {
+	if err = c.validateScore(ratioRules); err != nil {
 		return 0, err
 	}
 	// スコアを計算する
@@ -40,7 +43,7 @@ func (c *CalculateScoreRule) CalculateScore(ctx context.Context, tr *aggregate.T
 	// 初期スコアおよび減点係数の設定
 	score := 100.0
 
-	for _, s := range mappedScore {
+	for s := range slices.Values(mappedScore) {
 		// スコアを算出して、減点する
 		score -= c.calculatePenaltyScore(s)
 	}
@@ -48,33 +51,39 @@ func (c *CalculateScoreRule) CalculateScore(ctx context.Context, tr *aggregate.T
 	if score < 0 {
 		return 0, errors.New("スコアが0未満になりました")
 	}
-
+	slog.Info("your score", "score", score)
 	return score, nil
 }
 
+// calculateRatio baseAmountに対するカテゴリの支出の値を計算する
+func (c *CalculateScoreRule) calculateRatio(expenses, baseAmount int64) float64 {
+	return float64(expenses) / float64(baseAmount)
+}
+
+// calculatePenaltyScore 減点スコアを計算する
 func (c *CalculateScoreRule) calculatePenaltyScore(score *models.Score) float64 {
 	return math.Abs(score.ActualRatio-score.IdealRatio) * penaltyFactor
 }
 
-func (c *CalculateScoreRule) calculateActualScore(tr *aggregate.TransactionReportDto, ratioRules []*models.RatioRule) []*models.Score {
-	// todo ここもDBに持つのが理想的なので改善の余地あり
+// calculateActualScore 実際のスコアを計算する
+func (c *CalculateScoreRule) calculateActualScore(tr *aggregate.TransactionReportDto, ratioRules []*models.RatioRule) (scores []*models.Score) {
 
-	var scores []*models.Score
-	for _, r := range ratioRules {
+	for r := range slices.Values(ratioRules) {
 		var actualRatio float64
 		switch r.Category {
 		case code.Food.String():
-			actualRatio = float64(tr.FoodExpenses) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.FoodExpenses, tr.BaseAmounts)
 		case code.Other.String():
-			actualRatio = float64(tr.OtherExpenses) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.OtherExpenses, tr.BaseAmounts)
 		case code.Waste.String():
-			actualRatio = float64(tr.WasteExpenses) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.WasteExpenses, tr.BaseAmounts)
 		case code.Fixed.String():
-			actualRatio = float64(tr.FixedCosts) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.FixedCosts, tr.BaseAmounts)
 		case code.Variable.String():
-			actualRatio = float64(tr.VariableCosts) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.VariableCosts, tr.BaseAmounts)
 		case code.Savings.String():
-			actualRatio = float64(tr.Savings) / float64(tr.BaseAmounts)
+			actualRatio = c.calculateRatio(tr.Savings, tr.BaseAmounts)
+
 		}
 		scores = append(scores, &models.Score{
 			IdealRatio:  r.IdealRatio,
@@ -85,9 +94,10 @@ func (c *CalculateScoreRule) calculateActualScore(tr *aggregate.TransactionRepor
 	return scores
 }
 
-func (c *CalculateScoreRule) validateScoreMapping(scoreMapping []*models.RatioRule) error {
+// validateScore dbから取得したスコアをバリデーションする
+func (c *CalculateScoreRule) validateScore(scoreMapping []*models.RatioRule) error {
 	var sumScore float64
-	for _, score := range scoreMapping {
+	for score := range slices.Values(scoreMapping) {
 		sumScore += score.IdealRatio
 	}
 	if sumScore != 1.0 {
