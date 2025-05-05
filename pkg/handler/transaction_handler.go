@@ -61,7 +61,6 @@ func (h *TransactionHandler) Analysis(w http.ResponseWriter, r *http.Request) {
 	// response書き込み
 	helper.WriteJsonResponse(w, http.StatusOK, res)
 
-	return
 }
 
 func (h *TransactionHandler) Retrieve(w http.ResponseWriter, r *http.Request) {
@@ -92,7 +91,6 @@ func (h *TransactionHandler) Retrieve(w http.ResponseWriter, r *http.Request) {
 	// response書き込み
 	helper.WriteJsonResponse(w, http.StatusOK, res)
 
-	return
 }
 
 func (h *TransactionHandler) Execute(w http.ResponseWriter, r *http.Request) {
@@ -120,5 +118,4 @@ func (h *TransactionHandler) Execute(w http.ResponseWriter, r *http.Request) {
 	// response書き込み
 	helper.WriteJsonResponse(w, http.StatusOK, res)
 
-	return
 }

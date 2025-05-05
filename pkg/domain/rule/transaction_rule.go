@@ -1,3 +1,5 @@
+//go:generate mockgen -source=transaction_rule.go -destination=../../../internal/mocks/domain/rule/transaction_rule.go -package=mocks
+
 package rule
 
 import "github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"

@@ -1,3 +1,5 @@
+//go:generate mockgen -source=analytics_transaction_usecase.go -destination=../../internal/mocks/infrastructure/analytics_transaction_usecase.go -package=mocks
+
 package infrastructure
 
 import (

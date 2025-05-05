@@ -73,8 +73,292 @@ Content-Disposition: form-data; name="file"; filename="csv"
 
 ###
 
+POST localhost:8080/rakuten/transaction/execute
+Content-Type: application/json
 
-
-
-
-
+{
+  "baseAmounts": 300000,
+  "fixedCosts": 138620,
+  "transactions": [
+    {
+      "transactionDate": "2025-03-31",
+      "detail": "西鉄ストア",
+      "amount": 2196,
+      "category": "food",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-29",
+      "detail": "西鉄ストア",
+      "amount": 1683,
+      "category": "food",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-29",
+      "detail": "ゆめマート熊本　サニー　姪浜店",
+      "amount": 5112,
+      "category": "food",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-29",
+      "detail": "ﾐｽﾀｰﾏｯｸｽ",
+      "amount": 875,
+      "category": "other",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-16",
+      "detail": "ﾐｽﾀｰﾏｯｸｽ",
+      "amount": 579,
+      "category": "other",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-16",
+      "detail": "ゆめマート熊本　サニー　姪浜店",
+      "amount": 4376,
+      "category": "food",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-15",
+      "detail": "きゅうでんガス",
+      "amount": 4647,
+      "category": "variable",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-12",
+      "detail": "九州電力　　料金　　　２５／０３",
+      "amount": 13505,
+      "category": "variable",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "ソフトバンク（Ｂ）",
+      "amount": 4180,
+      "category": "fixed",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-07",
+      "detail": "ゆめマート熊本　サニー　姪浜店",
+      "amount": 2583,
+      "category": "food",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-06",
+      "detail": "マックスシェアー　ｍａｘｓｈａ",
+      "amount": 3080,
+      "category": "other",
+      "transactionType": "Credit"
+    },
+    {
+      "transactionDate": "2025-03-01",
+      "detail": "ＭＡＲＫ　ＩＳ福岡ももち",
+      "amount": 437,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-01",
+      "detail": "ＭＡＲＫ　ＩＳ福岡ももち",
+      "amount": 1230,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-01",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 3067,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-02",
+      "detail": "ミスターマックス",
+      "amount": 2362,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-02",
+      "detail": "ﾕﾒﾏ-ﾄｸﾏﾓﾄｻﾆ-ﾒｲﾉﾊﾏﾃﾝ",
+      "amount": 2938,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-08",
+      "detail": "ﾕﾒﾏ-ﾄｸﾏﾓﾄｻﾆ-ﾒｲﾉﾊﾏﾃﾝ",
+      "amount": 5735,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "玄海丸　姪浜店",
+      "amount": 2384,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "カフェポッターズ",
+      "amount": 2400,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "無印良品",
+      "amount": 750,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "天神地下街",
+      "amount": 2919,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-09",
+      "detail": "ｿﾗﾘｱﾌﾟﾗｻﾞ",
+      "amount": 484,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-11",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 2181,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-13",
+      "detail": "マックスバリュＥＸ姪浜駅前店",
+      "amount": 3637,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-19",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 4334,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-20",
+      "detail": "ハローデイ",
+      "amount": 684,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-20",
+      "detail": "ＭＡＲＫ　ＩＳ福岡ももち",
+      "amount": 875,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-20",
+      "detail": "ＭＡＲＫ　ＩＳ福岡ももち",
+      "amount": 1520,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-22",
+      "detail": "博多阪急",
+      "amount": 1500,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-22",
+      "detail": "博多デイトス",
+      "amount": 900,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-22",
+      "detail": "マックスバリュＥＸ姪浜駅前店",
+      "amount": 3135,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-22",
+      "detail": "やまや　姪浜小戸店",
+      "amount": 3110,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-23",
+      "detail": "セブン－イレブン",
+      "amount": 541,
+      "category": "waste",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-23",
+      "detail": "マックスバリュＥＸ姪浜駅前店",
+      "amount": 2572,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-24",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 113,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-26",
+      "detail": "セブン－イレブン",
+      "amount": 709,
+      "category": "waste",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-26",
+      "detail": "ＡＭＡＺＯＮ．ＣＯ．ＪＰ",
+      "amount": 6400,
+      "category": "other",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-26",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 2157,
+      "category": "food",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-27",
+      "detail": "ローソン",
+      "amount": 735,
+      "category": "waste",
+      "transactionType": "Debit"
+    },
+    {
+      "transactionDate": "2025-03-28",
+      "detail": "にしてつストア　姪の浜店",
+      "amount": 656,
+      "category": "food",
+      "transactionType": "Debit"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+//go:generate mockgen -source=ratio_rule_repository.go -destination=../../../internal/mocks/domain/repository/ratio_rule_repository.go -package=mocks
 package repository
 
 import (

@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go v0.118.3
 	cloud.google.com/go/bigquery v1.67.0
 	github.com/google/uuid v1.6.0
+	go.uber.org/mock v0.5.2
 	golang.org/x/text v0.24.0
 	google.golang.org/api v0.224.0
 	gopkg.in/yaml.v3 v3.0.1

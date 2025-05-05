@@ -1,3 +1,5 @@
+//go:generate mockgen -source=calculate_score_rule.go -destination=../../../internal/mocks/domain/rule/calculate_score_rule.go -package=mocks
+
 package rule
 
 import (

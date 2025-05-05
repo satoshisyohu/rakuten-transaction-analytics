@@ -4,8 +4,9 @@ tasks:
   install-tools:
     desc: Install development tools
     cmds:
-      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
       - go install golang.org/x/tools/cmd/goimports@latest
+      - go install go.uber.org/mock/mockgen@latest
 
   tidy:
     desc: Run go mod tidy
@@ -26,6 +27,10 @@ tasks:
     desc: Run tests
     cmds:
       - go test -v ./...
+  generate-mocks:
+    desc: Generate all gomock files via go:generate
+    cmds:
+      - go generate ./...
 
   ci:
     desc: Run all checks (tidy, fmt, lint, test)

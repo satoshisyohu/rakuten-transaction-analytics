@@ -1,3 +1,5 @@
+//go:generate mockgen -source=categorize_rule.go -destination=../../../internal/mocks/domain/rule/categorize_rule.go -package=mocks
+
 package rule
 
 type ICategorizeRule interface {
