@@ -1,5 +1,6 @@
 package code
 
+// Category Categoryのコード値
 type Category string
 
 const (

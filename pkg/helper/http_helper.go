@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// WriteJsonResponse http.ResponseWriterにjsonを出力する
 func WriteJsonResponse(writer http.ResponseWriter, httpStatus int, response any) {
 
 	// status設定

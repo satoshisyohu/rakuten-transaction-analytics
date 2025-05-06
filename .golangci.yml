@@ -1,0 +1,22 @@
+version: "2"
+
+#linters:
+#  enable:
+#    - revive
+#
+#linters-settings:
+#  revive:
+#    rules:
+#      # パッケージコメントは無視する
+#      - name: package-comments
+#        disabled: true
+#      # 全関数にコメントを要求
+#      - name: comments
+#        arguments:
+#          - "require-all"
+#      # エクスポートへのコメントは無視する
+#      - name: exported
+#        disabled: true
+#      - name: var-naming
+#        disabled: true
+#    severity: warning

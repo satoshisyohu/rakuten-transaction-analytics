@@ -7,6 +7,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// JsonToStruct jsonを構造体に変換する
 func JsonToStruct[T any](path string, v *T) (err error) {
 	data, err := os.ReadFile(path)
 	if err != nil {

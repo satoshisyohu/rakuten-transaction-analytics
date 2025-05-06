@@ -1,5 +1,6 @@
 package aggregate
 
+// TransactionReportDto スコア算出時に使用するdto
 type TransactionReportDto struct {
 	// BaseAmount 基準金額
 	BaseAmounts int64

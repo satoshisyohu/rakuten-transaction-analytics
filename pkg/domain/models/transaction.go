@@ -15,7 +15,7 @@ type Transaction struct {
 	Amount          int64
 	Category        string
 	TransactionType string
-	Id              string
+	ID              string
 }
 
 // NewTransaction Transactionのファクトリ関数

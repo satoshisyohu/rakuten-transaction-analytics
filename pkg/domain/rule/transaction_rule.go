@@ -4,6 +4,7 @@ package rule
 
 import "github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
 
+// ITransactionRule interface
 type ITransactionRule interface {
 	// CalculateAmount 使用した合計金額を計算する
 	CalculateAmount() int64

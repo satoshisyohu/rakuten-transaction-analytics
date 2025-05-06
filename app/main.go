@@ -1,7 +1,9 @@
 package main
 
 import (
+	"cloud.google.com/go/bigquery"
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/adapter/db"
@@ -12,6 +14,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/infrastructure/impl"
 )
 
+// main エントリーポイント
 func main() {
 
 	// todo pathは環境変数から読み込む
@@ -26,7 +29,12 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	defer bqclient.Close()
+	defer func(bqclient *bigquery.Client) {
+		dErr := bqclient.Close()
+		if dErr != nil {
+			slog.Error("Failed to close BigQuery client.", "err", dErr)
+		}
+	}(bqclient)
 
 	// repository
 	transactionRepository := repository.NewTransactionRepository(bqclient)

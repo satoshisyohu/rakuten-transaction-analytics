@@ -4,9 +4,10 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
 )
 
+// TransactionReport 毎月のトランザクションレポートを
 type TransactionReport struct {
 	// ID
-	Id string
+	ID string
 	// YearMonth
 	YearMonth string
 	// BaseAmount 基準金額
@@ -29,9 +30,10 @@ type TransactionReport struct {
 	Savings int64
 }
 
+// NewTransactionReport TransactionReportのファクトリ関数
 func NewTransactionReport(yearMonth, id string, score float64, trd *aggregate.TransactionReportDto) *TransactionReport {
 	return &TransactionReport{
-		Id:            id,
+		ID:            id,
 		YearMonth:     yearMonth,
 		BaseAmounts:   trd.BaseAmounts,
 		TotalAmount:   trd.TotalAmount,

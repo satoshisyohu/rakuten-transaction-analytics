@@ -8,6 +8,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
 )
 
+// TransactionReportRepository repository interface
 type TransactionReportRepository interface {
 	SaveAll(context.Context, []*models.TransactionReport) error
 	SelectByYearMonth(context.Context, string) ([]*models.TransactionReport, error)

@@ -8,6 +8,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/handler/dto"
 )
 
+// IRetrieveTransactionUsecase インターフェース
 type IRetrieveTransactionUsecase interface {
 	// Run 実行する
 	Run(context.Context, []*multipart.FileHeader) (*dto.RetrieveTransactionResponses, error)

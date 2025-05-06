@@ -41,6 +41,7 @@ func NewAnalyticsTransactionUsecase(
 	}
 }
 
+// Run ユースケースを実行する
 func (a *AnalyticsTransactionUsecase) Run(ctx context.Context, req *dto.TransactionRequest) (res *dto.TransactionResponse, err error) {
 	// 冪等性を担保するためにリクエストの月のTransactionReportsを取得する
 	//レコードが存在する場合、基本的に処理は行わないが、リクエストのパラメタに応じて処理を行う
@@ -137,7 +138,7 @@ func (a *AnalyticsTransactionUsecase) calculateAndAggregateTransaction(req *dto.
 			Amount:          t.Amount,
 			Category:        t.Category,
 			TransactionType: t.TransactionType,
-			Id:              u,
+			ID:              u,
 		}
 		allTransaction[i] = transaction
 	}

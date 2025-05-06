@@ -7,6 +7,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/models"
 )
 
+// RatioRuleRepository repository interface
 type RatioRuleRepository interface {
 	SelectAll(ctx context.Context) ([]*models.RatioRule, error)
 }

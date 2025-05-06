@@ -4,6 +4,7 @@ import (
 	"cloud.google.com/go/civil"
 )
 
+// TransactionResponse responseの構造体
 type TransactionResponse struct {
 	// 合計使用金額
 	TotalAmount int64 `json:"totalAmount"`
@@ -23,10 +24,12 @@ type TransactionResponse struct {
 	Savings int64 `json:"savings"`
 }
 
+// RetrieveTransactionResponses responseの構造体
 type RetrieveTransactionResponses struct {
 	Transactions []*RetrieveTransaction `json:"transactions"`
 }
 
+// RetrieveTransaction トランザクションの詳細を取得するための構造体
 type RetrieveTransaction struct {
 	TransactionDate civil.Date `json:"transactionDate"`
 	Detail          string     `json:"detail"`

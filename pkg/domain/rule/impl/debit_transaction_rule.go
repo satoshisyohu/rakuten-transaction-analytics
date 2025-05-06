@@ -6,6 +6,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/rule"
 )
 
+// DebitTransactionRule デビットの取引明細を扱うルール
 type DebitTransactionRule struct {
 	debitTransaction []*models.Transaction
 	cr               rule.ICategorizeRule

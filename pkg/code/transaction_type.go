@@ -1,9 +1,13 @@
 package code
 
+// TransactionType TransactionTypeのコード値
+
 type TransactionType string
 
 const (
-	DebitTransaction  TransactionType = "0"
+	// DebitTransaction DebitTransactionのコード値
+	DebitTransaction TransactionType = "0"
+	// CreditTransaction CreditTransactionのコード値
 	CreditTransaction TransactionType = "1"
 )
 

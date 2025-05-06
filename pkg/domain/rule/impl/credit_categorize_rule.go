@@ -2,6 +2,7 @@ package impl
 
 import "github.com/satoshisyohu/rakuten-transaction-analytics/pkg/helper"
 
+// CreditCategorizeRule クレジットカードの費用を分類するルール
 type CreditCategorizeRule struct {
 }
 

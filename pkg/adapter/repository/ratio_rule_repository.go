@@ -15,7 +15,7 @@ import (
 
 const (
 	ratioRuleTable = "RatioRules"
-	selectAllSql   = "SELECT Id,IdealRatio,Category,StartDate,EndDate FROM `%s.%s`"
+	selectAllSQL   = "SELECT Id,IdealRatio,Category,StartDate,EndDate FROM `%s.%s`"
 )
 
 // ratioRuleRepository 明細を保存するリポジトリ
@@ -32,7 +32,7 @@ func NewRatioRuleRepository(client *bigquery.Client) repository.RatioRuleReposit
 
 // SelectAll 比率のルールを取得する
 func (rr *ratioRuleRepository) SelectAll(ctx context.Context) ([]*models.RatioRule, error) {
-	sql := fmt.Sprintf(selectAllSql, helper.GetDatasetId(), ratioRuleTable)
+	sql := fmt.Sprintf(selectAllSQL, helper.GetDatasetId(), ratioRuleTable)
 
 	it, err := rr.client.Query(sql).Read(ctx)
 	if err != nil {

@@ -2,6 +2,7 @@
 
 package rule
 
+// ICategorizeRule interface
 type ICategorizeRule interface {
 	// IsFoodCosts　食費
 	IsFoodCosts(string) bool

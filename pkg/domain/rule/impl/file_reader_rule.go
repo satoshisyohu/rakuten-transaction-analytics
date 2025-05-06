@@ -10,13 +10,16 @@ import (
 	"golang.org/x/text/transform"
 )
 
+// FileReaderRule CSVファイルを読み込むルール
 type FileReaderRule struct {
 }
 
+// NewFileReaderRule FileReaderRuleのファクトリ関数
 func NewFileReaderRule() *FileReaderRule {
 	return &FileReaderRule{}
 }
 
+// ReadAll ファイルを読み込む
 func (f *FileReaderRule) ReadAll(fileHeader *multipart.FileHeader) ([][]string, error) {
 
 	file, err := fileHeader.Open()
@@ -53,13 +56,13 @@ func (f *FileReaderRule) newReader(file multipart.File) (*csv.Reader, error) {
 		// BOMが存在する場合はすでにファイルポインタがBOM以降のためそのまま返す
 		// これはクレジットカードの明細を読み込んだ場合でありUTF-8のためそのまま読み込み可能
 		return csv.NewReader(file), nil
-	} else {
-		// BOMがない場合、ファイルポインタを先頭に戻す必要がある
-		// これはデビットカードの明細を読み込んだ場合でありShift-JISのためデコードして読み込む必要がある
-		if _, err := file.Seek(0, 0); err != nil {
-			return nil, err
-		}
-		// BOMがない場合はShift-JISでデコードする
-		return csv.NewReader(transform.NewReader(file, japanese.ShiftJIS.NewDecoder())), nil
 	}
+	// BOMがない場合、ファイルポインタを先頭に戻す必要がある
+	// これはデビットカードの明細を読み込んだ場合でありShift-JISのためデコードして読み込む必要がある
+	if _, err := file.Seek(0, 0); err != nil {
+		return nil, err
+	}
+	// BOMがない場合はShift-JISでデコードする
+	return csv.NewReader(transform.NewReader(file, japanese.ShiftJIS.NewDecoder())), nil
+	
 }

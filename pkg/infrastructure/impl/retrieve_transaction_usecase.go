@@ -12,6 +12,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/handler/dto"
 )
 
+// IRetrieveTransactionUsecase 取引明細を取得するユースケースの構造体
 type RetrieveTransactionUsecase struct {
 	fileReaderRule rule.IFileReaderRule
 }

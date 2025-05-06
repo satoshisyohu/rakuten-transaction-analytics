@@ -2,6 +2,7 @@ package dto
 
 import "cloud.google.com/go/civil"
 
+// TransactionRequest 取引明細分析のリクエスト
 type TransactionRequest struct {
 	YearMonth string `json:"yearMonth" validate:"required"`
 	// ベースとなる金額
@@ -20,10 +21,12 @@ type TransactionRequest struct {
 	Transactions []*AnalyzeTransaction `json:"transactions"`
 }
 
+// CalculateTotalAmount 合計金額を計算する
 func (tr *TransactionRequest) CalculateTotalAmount() int64 {
 	return tr.FoodExpenses + tr.WasteExpenses + tr.OtherExpenses + tr.FixedCosts + tr.VariableCosts
 }
 
+// AnalyzeTransaction 取引明細の構造体
 type AnalyzeTransaction struct {
 	TransactionDate civil.Date `json:"transactionDate"`
 	Detail          string     `json:"detail"`

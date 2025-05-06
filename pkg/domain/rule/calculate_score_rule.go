@@ -8,6 +8,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/aggregate"
 )
 
+// ICalculateScoreRule interface
 type ICalculateScoreRule interface {
 	// CalculateScore ファイルを読み込む
 	CalculateScore(context.Context, *aggregate.TransactionReportDto) (float64, error)

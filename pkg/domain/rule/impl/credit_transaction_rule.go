@@ -6,6 +6,7 @@ import (
 	"github.com/satoshisyohu/rakuten-transaction-analytics/pkg/domain/rule"
 )
 
+// CreditTransactionRule クレジットの取引明細を扱うルール
 type CreditTransactionRule struct {
 	creditTransaction []*models.Transaction
 	cr                rule.ICategorizeRule

@@ -4,6 +4,7 @@ package rule
 
 import "mime/multipart"
 
+// IFileReaderRule interface
 type IFileReaderRule interface {
 	// ReadAll ファイルを読み込む
 	ReadAll(*multipart.FileHeader) ([][]string, error)
